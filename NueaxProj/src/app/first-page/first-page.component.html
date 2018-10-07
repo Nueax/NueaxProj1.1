@@ -1,0 +1,176 @@
+<!-- Online-Offline Tracker -->
+<app-internet-connection></app-internet-connection>
+<!-- ...................... -->
+
+<div>
+
+  <mat-tab-group (selectedTabChange)="tabChanged($event)">
+    
+    <!-- Form -->
+    <mat-tab label="Form">
+       <!-- Personal Details -->
+       <div class="row">
+                
+          <div class="col-1"></div>
+
+          <div class="col-10">
+              <form [formGroup]="PersonalDetailsForm" (ngSubmit)="SubmitForm(PersonalDetailsForm.value)">
+                  
+                  <div>
+
+                      <mat-form-field appearance="legacy" style="width:26vw">
+                          <mat-label>First Name</mat-label>
+                          <input matInput placeholder="Enter First Name" formControlName="First_Name">
+                      </mat-form-field>
+                  
+                  </div>
+
+                  <div>
+
+                      <mat-form-field appearance="legacy" style="width:26vw">
+                          <mat-label>Last Name</mat-label>
+                          <input matInput placeholder="Enter Last Name" formControlName="Last_Name">
+                      </mat-form-field>
+                    
+                  </div>
+
+                  <div>
+
+                      <mat-form-field appearance="legacy" style="width:26vw">
+                        <mat-label>Email_Id</mat-label>
+                        <input matInput placeholder="Enter Email Id" formControlName="Email_Id">
+                      </mat-form-field>
+                      
+                  </div>
+
+                  <div>
+
+                      <mat-form-field appearance="legacy" style="width:26vw">
+                        <mat-label>Contact</mat-label>
+                        <input matInput placeholder="Enter Contact" formControlName="Contact">
+                      </mat-form-field>
+                      
+                  </div>
+
+                  <div>
+
+                      <mat-form-field appearance="legacy" style="width:26vw">
+                        <mat-label>Date Of Birth</mat-label>
+                        <input matInput placeholder="Enter Date Of Birth" formControlName="DOB">
+                      </mat-form-field>
+                      
+                  </div>
+                   <!-- Blank Spaces B/w Button and Password -->
+                    <div class="row">
+                      <div class="col-12">
+                        <p></p>
+                      </div>
+                      <div class="col-12">
+                        <p></p>
+                      </div>
+                    </div>
+                  <!-- ...................................... -->
+
+                  <!-- SignUp Button -->
+                    <div class="row">
+
+                      <div class="col-4"><p></p></div>
+                      
+                      <div class="col-4">
+                        <mat-chip-list>
+                            <button mat-raised-button color="accent" selected type="submit">SignUp</button>
+                        </mat-chip-list>
+                      </div> 
+
+                      <div class="col-4"><p></p></div>
+                    </div>
+                  <!-- ............ -->
+              </form> 
+          </div>
+          
+          <div class="col-1"></div>
+
+        </div>
+     <!-- ...... -->
+
+    </mat-tab>
+    <!-- .... -->
+    
+    <!-- FirebaseData -->
+    <mat-tab label="Show Firebase Data">
+      <table mat-table #table [dataSource]="FirebaseTableData">
+        
+        <ng-container matColumnDef="First_Name">
+          <th mat-header-cell *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let Firebase">{{Firebase.First_Name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Last_Name">
+          <th mat-header-cell *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let Firebase">{{Firebase.Last_Name}}</td>
+        </ng-container>
+        
+        <ng-container matColumnDef="Email_Id">
+          <th mat-header-cell *matHeaderCellDef> Email Id </th>
+          <td mat-cell *matCellDef="let Firebase">{{Firebase.Email_Id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Contact">
+          <th mat-header-cell *matHeaderCellDef> Contact </th>
+          <td mat-cell *matCellDef="let Firebase">{{Firebase.Contact}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="DOB">
+          <th mat-header-cell *matHeaderCellDef> Date Of Birth </th>
+          <td mat-cell *matCellDef="let Firebase">{{Firebase.DOB}}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+      </table>
+    </mat-tab>
+    <!-- ............ -->
+
+    <!-- LocalHost Data -->
+    <mat-tab label="Show Localhost Data">
+        <table mat-table #table [dataSource]="LocalHostTableData">
+        
+            <ng-container matColumnDef="First_Name">
+              <th mat-header-cell *matHeaderCellDef> First Name </th>
+              <td mat-cell *matCellDef="let Firebase">{{Firebase.FirstName}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Last_Name">
+              <th mat-header-cell *matHeaderCellDef> Last Name </th>
+              <td mat-cell *matCellDef="let Firebase">{{Firebase.LastName}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Email_Id">
+              <th mat-header-cell *matHeaderCellDef> Email Id </th>
+              <td mat-cell *matCellDef="let Firebase">{{Firebase.EmailId}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Contact">
+              <th mat-header-cell *matHeaderCellDef> Contact </th>
+              <td mat-cell *matCellDef="let Firebase">{{Firebase.Contact}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="DOB">
+              <th mat-header-cell *matHeaderCellDef> Date Of Birth </th>
+              <td mat-cell *matCellDef="let Firebase">{{Firebase.DOB}}</td>
+            </ng-container>
+    
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+    
+          </table>
+    </mat-tab>
+    <!-- ............. -->
+  
+  </mat-tab-group>
+</div>
