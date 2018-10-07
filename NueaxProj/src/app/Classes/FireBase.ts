@@ -10,7 +10,6 @@ import { Injectable, NgZone} from '@angular/core';
 @Injectable()
 export class Firebase
 {
-    FirebaseDataArray:any[]=[];
     constructor(
                  private AngularFireAuth:AngularFireAuth,private AngularFireDatabase:AngularFireDatabase,
                  private Router:Router,private NgZone:NgZone,private LocalHost:LocalHost

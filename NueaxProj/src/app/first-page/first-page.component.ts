@@ -178,8 +178,8 @@ export class FirstPageComponent implements OnInit
       {
         this.ShowLocalHostData();
       }
-      console.log('tabChangeEvent => ', tabChangeEvent);
-      console.log('index => ', tabChangeEvent.index);
+      // console.log('tabChangeEvent => ', tabChangeEvent);
+      // console.log('index => ', tabChangeEvent.index);
     }
 
 }
