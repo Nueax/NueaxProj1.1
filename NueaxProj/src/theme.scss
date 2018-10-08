@@ -18,3 +18,23 @@ $Form-theme: mat-light-theme($Form-primary,$Form-accent,$Form-Warn);
 {
     @include angular-material-theme($Form-theme);
 }
+
+$SucessError-primary: mat-palette($mat-gray,800);
+$SucessError-accent: mat-palette($mat-green,500);
+
+$SucessError-theme: mat-light-theme($SucessError-primary,$SucessError-accent);
+
+.SucessError
+{
+    @include angular-material-theme($SucessError-theme);
+}
+
+.error-snackbar
+{
+    color:#ef5350;
+}
+
+.sucess-snackbar
+{
+    color:#81d4fa;
+}

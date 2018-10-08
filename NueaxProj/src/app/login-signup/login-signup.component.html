@@ -2,236 +2,250 @@
 <app-internet-connection></app-internet-connection>
 <!-- ...................... -->
 
-<div class="FormTheme">
+  <div class="FormTheme">
 
-  <!-- ROW:1 :- Blank Spaces before from start-->
-     <div class="row">
-       <div class="col-12">
-         <p></p>
-       </div>
-       <div class="col-12">
-         <p></p>
-       </div>
-       <div class="col-12">
-         <p></p>
-       </div>
-     </div>
-  <!-- ............. -->
- 
- <!-- ROW:2 :- This Row Contains the Form and Other stuff -->
-   <div class="row">
+    <!-- ROW:1 :- Blank Spaces before from start-->
+      <div class="row">
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+      </div>
+    <!-- ............. -->
+  
+  <!-- ROW:2 :- This Row Contains the Form and Other stuff -->
+    <div class="row">
 
-     <!--COL-1: For Horizontal Space-->
-       <div class="col-4"><p></p></div>  
-     <!-- ......................... -->
-     
-     <!-- COL-2 : Form -->
-       <div class="col-4" style="border:2px solid black">
+      <!--COL-1: For Horizontal Space-->
+        <div class="col-2"><p></p></div>  
+      <!-- ......................... -->
+      
+      <!-- COL-2 : Form -->
+        <div class="col-4" style="border:2px solid black">
 
-         <!-- ... ROW:1 :- Login SignUp Button Row -->
-           <div class="row">
-             
-             <!-- <div class="col-6"> -->
-               <button mat-flat-button [color]="LogInButtonColor" style="width:16.81vw" value="login" (click)="ShowLogInForm()">Login</button>
-               <div style="border-left: 2px solid black"></div>
-               <button mat-flat-button [color]="SignUpButtonColor" style="width:16.81vw" value="signup" (click)="ShowSignUpForm()">Sign Up</button>
-             <!-- </div> -->
+          <!-- ... ROW:1 :- Login SignUp Button Row -->
+            <div class="row">
+              
+              <!-- <div class="col-6"> -->
+                <button mat-flat-button [color]="LogInButtonColor" style="width:16.81vw" value="login" (click)="ShowLogInForm()">Login</button>
+                <div style="border-left: 2px solid black"></div>
+                <button mat-flat-button [color]="SignUpButtonColor" style="width:16.81vw" value="signup" (click)="ShowSignUpForm()">Sign Up</button>
+              <!-- </div> -->
 
-           </div>
-         <!-- ........................... -->
-         
-         <!-- ... ROW:2 :- Blank Space between the Login and Signup button row and the form ... -->
-           <div class="row">
-             <div class="col-12"><p></p></div>    
-           </div>
-         <!-- ................................................................................. -->
+            </div>
+          <!-- ........................... -->
+          
+          <!-- ... ROW:2 :- Blank Space between the Login and Signup button row and the form ... -->
+            <div class="row">
+              <div class="col-12"><p></p></div>    
+            </div>
+          <!-- ................................................................................. -->
 
-         <!-- ... ROW:3 :- Login Form ........ -->
-           <div class="row" [hidden]="LogInFormHidden">
-               
-             <div class="col-1"></div>
-
-             <div class="col-10">
-               <form [formGroup]="LoginForm" (ngSubmit)="Login(LoginForm.value)">
-             
-                 <!-- EmailId Column -->
-                   
-                   <!-- EmailId Division -->
-                     <div>
-                       
-                       <mat-form-field appearance="legacy" style="width:26vw">
-                         <mat-label>EmailId</mat-label>
-                         <input matInput placeholder="Enter EmailId" formControlName="EmailId">
-                       </mat-form-field>
-                     
-                     </div>
-                   <!-- ............ -->
-                   
-                   <!-- Emaild Error Division-->
-                     <div>
-                       
-                     </div>
-                   <!-- .................... -->
-                 
-                 <!-- ........... -->
-
-                 <!-- Password Column -->
-                   
-                   <!-- Password Division -->
-                     <div>
-                       
-                       <mat-form-field appearance="legacy" style="width:26vw">
-                         <mat-label>Password</mat-label>
-                         <input type="password" matInput placeholder="Enter Password" formControlName="Password">
-                       </mat-form-field>
-                       
-                     </div>
-                   <!-- ................. -->
-                   <!-- Password Error Division-->
-                     <div>
-                       
-                     </div>
-                   <!-- .................... -->
-                 
-                 <!-- ....................... -->
-
-                 <!-- Blank Spaces B/w Button and Password -->
-                   <div class="row">
-                     <div class="col-12">
-                       <p></p>
-                     </div>
-                     <div class="col-12">
-                       <p></p>
-                     </div>
-                   </div>
-                 <!-- ...................................... -->
-                 
-                 <!-- Login Button -->
-                   <div class="row">
-
-                     <div class="col-4"><p></p></div>
-                     
-                     <div class="col-4">
-                       <mat-chip-list>
-                           <button mat-raised-button color="accent" selected type="submit">Login</button>
-                       </mat-chip-list>
-                     </div> 
-
-                     <div class="col-4"><p></p></div>
-                   </div>
-                 <!-- ............ -->
-
-               </form>
-             </div>
-             
-             <div class="col-1"></div>
-
-           </div>
-         <!-- ........................... -->
-
-         <!-- SignUp -->
-            <div class="row" [hidden]="SignUpFormHidden">
+          <!-- ... ROW:3 :- Login Form ........ -->
+            <div class="row" [hidden]="LogInFormHidden">
                 
               <div class="col-1"></div>
 
               <div class="col-10">
-                  <form [formGroup]="SignUpForm" (ngSubmit)="SignUp(SignUpForm.value)">
+                <form [formGroup]="LoginForm" (ngSubmit)="Login(LoginForm.value)">
+              
+                  <!-- EmailId Column -->
+                    
+                    <div class="SucessError">
+                        
+                      <mat-form-field appearance="legacy" style="width:26vw">
+                        <mat-label>EmailId</mat-label>
+                        <input matInput placeholder="Enter EmailId" formControlName="EmailId" color=accent>
+                        <mat-icon matSuffix color="accent" [hidden]="!LoginForm.controls['EmailId'].valid">check</mat-icon>
+                        <mat-error *ngIf ="!LoginForm.controls['EmailId'].valid && LoginForm.controls['EmailId'].touched">Please Enter the valid email Id</mat-error>
+                      </mat-form-field>
                       
-                      <div>
+                    </div>
+                  <!-- ........... -->
 
-                          <mat-form-field appearance="legacy" style="width:26vw">
-                              <mat-label>EmailId</mat-label>
-                              <input matInput placeholder="Enter EmailId" formControlName="EmailId">
-                          </mat-form-field>
-                      
-                      </div>
-
-                      <div>
-
-                          <mat-form-field appearance="legacy" style="width:26vw">
-                              <mat-label>Password</mat-label>
-                              <input type="password" matInput placeholder="Enter Password" formControlName="Password">
-                          </mat-form-field>
+                  <!-- Password Column -->
+                    
+                    <!-- Password Division -->
+                      <div class="SucessError">
+                        
+                        <mat-form-field appearance="legacy" style="width:26vw">
+                          <mat-label>Password</mat-label>
+                          <input type="password" matInput placeholder="Enter Password" formControlName="Password">
+                          <mat-icon matSuffix color="accent" [hidden]="!LoginForm.controls['Password'].valid">check</mat-icon>
+                          <mat-error *ngIf ="LoginForm.get('Password').errors?.required">Please Enter the Password</mat-error>
+                          <mat-error *ngIf ="LoginForm.get('Password').errors?.minlength">Enter At Least 6 Characters</mat-error>
+                        </mat-form-field>
                         
                       </div>
-
+                    <!-- ................. -->
+                    <!-- Password Error Division-->
                       <div>
-
-                          <mat-form-field appearance="legacy" style="width:26vw">
-                            <mat-label>Confirm Password</mat-label>
-                            <input type="password" matInput placeholder="Confirm Password" formControlName="ConfirmPassword">
-                          </mat-form-field>
-                          
+                        
                       </div>
+                    <!-- .................... -->
+                  
+                  <!-- ....................... -->
 
-                       <!-- Blank Spaces B/w Button and Password -->
-                        <div class="row">
-                          <div class="col-12">
-                            <p></p>
-                          </div>
-                          <div class="col-12">
-                            <p></p>
-                          </div>
-                        </div>
-                      <!-- ...................................... -->
+                  <!-- Blank Spaces B/w Button and Password -->
+                    <div class="row">
+                      <div class="col-12">
+                        <p></p>
+                      </div>
+                      <div class="col-12">
+                        <p></p>
+                      </div>
+                    </div>
+                  <!-- ...................................... -->
+                  
+                  <!-- Login Button -->
+                    <div class="row">
 
-                      <!-- SignUp Button -->
-                        <div class="row">
+                      <div class="col-4"><p></p></div>
+                      
+                      <div class="col-4">
+                        <mat-chip-list>
+                            <button mat-raised-button color="accent" selected type="submit" [disabled]="!LoginForm.valid">Login</button>
+                        </mat-chip-list>
+                      </div> 
 
-                          <div class="col-4"><p></p></div>
-                          
-                          <div class="col-4">
-                            <mat-chip-list>
-                                <button mat-raised-button color="accent" selected type="submit">SignUp</button>
-                            </mat-chip-list>
-                          </div> 
-    
-                          <div class="col-4"><p></p></div>
-                        </div>
-                      <!-- ............ -->
-                  </form> 
+                      <div class="col-4"><p></p></div>
+                    </div>
+                  <!-- ............ -->
+
+                </form>
               </div>
               
               <div class="col-1"></div>
 
             </div>
-         <!-- ...... -->
+          <!-- ........................... -->
 
-         <!-- Row:4 :- Blank Spaces B/w Button and border -->
-           <div class="row">
-             <div class="col-12">
-               <p></p>
-             </div>
-             <div class="col-12">
-               <p></p>
-             </div>
-           </div>
-         <!-- ....................................  -->
-       </div>
-     <!-- ............ -->
-     
-     <!-- COL-3 :Horizontal Space-->
-       <div class="col-4"><p></p></div>  
-     <!-- ...................... -->
-       
-   </div>
- <!-- ...........................................  -->
- 
- <!-- ROW:3 :- Blank Spaces B/w Form and Lower border -->
-   <div class="row">
-       <div class="col-12">
-         <p></p>
-       </div>
-       <div class="col-12">
-         <p></p>
-       </div>
-       <div class="col-12">
-         <p></p>
-       </div>
-       <div class="col-12">
-         <p></p>
-       </div>
-   </div>
- <!-- ....................................  -->
+          <!-- SignUp -->
+              <div class="row" [hidden]="SignUpFormHidden">
+                  
+                <div class="col-1"></div>
 
-</div>
+                <div class="col-10">
+                    <form [formGroup]="SignUpForm" (ngSubmit)="SignUp(SignUpForm.value)">
+                        
+                        <div class="SucessError">
+
+                            <mat-form-field appearance="legacy" style="width:26vw">
+                                <mat-label>EmailId</mat-label>
+                                <input matInput placeholder="Enter EmailId" formControlName="EmailId">
+                                <mat-icon matSuffix color="accent" [hidden]="!SignUpForm.controls['EmailId'].valid">check</mat-icon>
+                                <mat-error *ngIf ="!SignUpForm.controls['EmailId'].valid && SignUpForm.controls['EmailId'].touched">Please Enter the valid email Id</mat-error>
+                            </mat-form-field>
+                        
+                        </div>
+
+                        <div class="SucessError">
+
+                            <mat-form-field appearance="legacy" style="width:26vw">
+                                <mat-label>Password</mat-label>
+                                <input type="password" matInput placeholder="Enter Password" formControlName="Password">
+                                <mat-icon matSuffix color="accent" [hidden]="!SignUpForm.controls['Password'].valid">check</mat-icon>
+                                <mat-error *ngIf ="SignUpForm.get('Password').errors?.required">Please Enter the Password</mat-error>
+                                <mat-error *ngIf ="SignUpForm.get('Password').errors?.minlength">Enter At Least 6 Characters</mat-error>
+                            </mat-form-field>
+                          
+                        </div>
+
+                        <div class="SucessError">
+
+                            <mat-form-field appearance="legacy" style="width:26vw">
+                              <mat-label>Confirm Password</mat-label>
+                              <input type="password" matInput placeholder="Confirm Password" formControlName="ConfirmPassword">
+                              <mat-icon matSuffix color="accent" [hidden] ="!SignUpForm.controls['ConfirmPassword'].valid">check</mat-icon>
+                              <mat-error *ngIf ="SignUpForm.controls['ConfirmPassword'].pristine">Please Enter The Confirm Password</mat-error>
+                              <mat-error *ngIf ="SignUpForm.controls['ConfirmPassword'].errors?.MatchPassword">The Password Does Not Matched</mat-error>
+                            </mat-form-field>
+                            
+                        </div>
+
+                        <!-- Blank Spaces B/w Button and Password -->
+                          <div class="row">
+                            <div class="col-12">
+                              <p></p>
+                            </div>
+                            <div class="col-12">
+                              <p></p>
+                            </div>
+                          </div>
+                        <!-- ...................................... -->
+
+                        <!-- SignUp Button -->
+                          <div class="row">
+
+                            <div class="col-4"><p></p></div>
+                            
+                            <div class="col-4">
+                              <mat-chip-list>
+                                  <button mat-raised-button color="accent" selected type="submit" [disabled]="!SignUpForm.valid">SignUp</button>
+                              </mat-chip-list>
+                            </div> 
+      
+                            <div class="col-4"><p></p></div>
+                          </div>
+                        <!-- ............ -->
+                    </form> 
+                </div>
+                
+                <div class="col-1"></div>
+
+              </div>
+          <!-- ...... -->
+
+          <!-- Row:4 :- Blank Spaces B/w Button and border -->
+            <div class="row">
+              <div class="col-12">
+                <p></p>
+              </div>
+              <div class="col-12">
+                <p></p>
+              </div>
+            </div>
+          <!-- ....................................  -->
+        </div>
+      <!-- ............ -->
+      
+      <!-- COL-3 :Horizontal Space-->
+        <div class="col-4"><p></p></div>  
+      <!-- ...................... -->
+        
+    </div>
+  <!-- ...........................................  -->
+  
+  <!-- ROW:3 :- Blank Spaces B/w Form and Lower border -->
+    <div class="row">
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+        <div class="col-12">
+          <p></p>
+        </div>
+    </div>
+  <!-- ....................................  -->
+
+  </div>
+

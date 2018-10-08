@@ -1,20 +1,25 @@
+import { Component, OnInit} from '@angular/core';
 import {LocalHostService} from '../LocalHostService/local-host.service';
-import {Firebase} from "../Classes/FireBase";
 import { Injectable } from '@angular/core';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component';
+import {MatSnackBar,MatSnackBarConfig} from '@angular/material'
 import { Router } from '@angular/router';
+import {LoginSignupComponent} from '../login-signup/login-signup.component'
+import { AngularFireAuth } from '@angular/fire/auth';
 
-@Injectable({providedIn: 'root'})
+
+
+@Component({
+  styleUrls:["../../styles.css"]
+})
 
 export class LocalHost
 {
-  
-   Firebase:Firebase;
-   
+  private LoginSignupComponent:LoginSignupComponent;
    constructor(
-                private LocalHostService:LocalHostService,
+                private LocalHostService:LocalHostService,private AngularFireAuth:AngularFireAuth,
                 private InternetConnectionComponent:InternetConnectionComponent,
-                private Router:Router
+                private Router:Router,private MatSnackBar:MatSnackBar
               )
    {}
 
@@ -22,8 +27,12 @@ export class LocalHost
    {
         this.LocalHostService.SignUp(FormValues)
                               .subscribe(res=>{
-                                                 console.log("LocalHostSucessfully");
-                                               }
+                                                this.MatSnackBar.open("Sign Up Sucessfully. Now you can login.","OK", {
+                                                  verticalPosition:'bottom', 
+                                                  //horizontalPosition:'left',
+                                                  panelClass: ['sucess-snackbar']
+                                                  });
+                                              }
                                         );               
    }
 
@@ -31,21 +40,30 @@ export class LocalHost
     {
       this.LocalHostService.Login(FormValues.EmailId,FormValues.Password)
           .subscribe(result=>{
-                                console.log(result);
-                                if(result)
+                                // console.log("Inside LocalHost LogIn");
+                                // console.log(result[1]);
+                                if(result[2])
                                 {
                                   if(this.InternetConnectionComponent.isInternetConnectcionAvailable)
                                   {
-                                    this.Firebase.FirebaseSignup(FormValues);
+                                    
+                                    this.FirebaseSignup(FormValues);
                                   }
                                   this.Go_To_First_Page();
                                 }
                                 else
                                 {
-                                  console.log("Invalid EmailId and Password");
-                                }
-                             }
+                                 this.MatSnackBar.open("Invalid EmailId and Password",'OK',{
+                                  verticalPosition:'bottom', 
+                                  //horizontalPosition:'left',
+                                   panelClass: ['error-snackbar']
+                                  });
+                                }  
+                              
+                                 
+                              }
                     )
+                            
    }
 
   
@@ -58,4 +76,24 @@ export class LocalHost
   {
     this.Router.navigateByUrl("FirstPage");
   }  
+
+  FirebaseSignup(FormValues)
+    {
+        var no_error = true;
+        this.AngularFireAuth.auth.createUserWithEmailAndPassword(FormValues.EmailId,FormValues.Password)
+            .catch(
+                     Info=>{
+                              console.log(Info.message);
+                              no_error=false;
+                           }
+                  )
+            .then (
+                    ()=>{
+                            if(no_error==true)
+                            {
+                              console.log("SignUp Sucessfully")
+                            }
+                        }
+                  );
+    }
 }

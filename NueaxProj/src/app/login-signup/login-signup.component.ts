@@ -2,9 +2,10 @@ import { Component, OnInit} from '@angular/core';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component'
 import {Firebase} from '../Classes/FireBase';
 import {LocalHost} from '../Classes/LocalHost';
+import {PasswordValidation} from '../CustomValidation/ConfirmPassword';
 
 // ------- Angular Forms --------
-import {FormBuilder,FormGroup} from '@angular/forms';
+import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 // ------------------------------
 @Component({
   selector: 'app-login-signup',
@@ -35,14 +36,17 @@ export class LoginSignupComponent implements OnInit
   ngOnInit() 
   {
     this.SignUpForm = this.Formbuilder.group({
-                                                EmailId:[],
-                                                Password:[],
-                                                ConfirmPassword:[]
-                                            });     
+                                               EmailId:[null,Validators.compose([Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])],
+                                               Password:[null,Validators.compose([Validators.required,Validators.minLength(6)])],
+                                               ConfirmPassword:[null,Validators.required]
+                                             },
+                                              {
+                                                validator:PasswordValidation.MatchPassword
+                                              });     
     
     this.LoginForm = this.Formbuilder.group({
-                                                EmailId:[],
-                                                Password:[],
+                                                EmailId:[null,Validators.compose([Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])],
+                                                Password:[null,Validators.compose([Validators.required,Validators.minLength(6)])],
                                             });     
   }
 
@@ -85,27 +89,5 @@ export class LoginSignupComponent implements OnInit
     
     this.LocalHost.LocalHostSignUp(FormValue);
     
-  }
-
-  //----------- If InternetConnection Available --------------------
-  CopyOfLocalHostData()
-  {
-
-  }
-
-  InsertIntoFirebase()
-  {
-
-  }
-  FirebaseSignUp()
-  {
-    
-  }
-
-  //----------------------------------------------------------------
-
-  LocalHostSignUp()
-  {
-
   }
 }
