@@ -1,26 +1,12 @@
-<div class="background">
-
   <!-- Online-Offline Tracker -->
-    <div class="row">
-      
-      <div>
-
-      </div>
-      
-      <div>
-
-      </div>
-      
-      <div>
+    <div>
         <app-internet-connection></app-internet-connection>
       </div>
-      
-    </div>
   <!-- ...................... -->
 
   <div class="row">
 
-    <div class="col-2">
+    <div class="col-1">
       <p></p>
     </div>
 
@@ -32,53 +18,73 @@
         <mat-tab label="Form">
           <!-- Personal Details -->
           <div class="row">
+            <div><p></p></div>
+          </div>
+
+          <div class="row">
                     
               <div class="col-1"></div>
 
-              <div class="col-10">
+              <div class="col-5" style="border:2px solid black">
                   <form [formGroup]="PersonalDetailsForm" (ngSubmit)="SubmitForm(PersonalDetailsForm.value)">
                       
-                      <div>
+                    <div class="row">
+                      <div class='col-12'><p></p></div>
+                      <div class='col-12'><p></p></div>
+                    </div>
+
+                      <div class="SucessError">
 
                           <mat-form-field appearance="legacy" style="width:26vw">
                               <mat-label>First Name</mat-label>
                               <input matInput placeholder="Enter First Name" formControlName="First_Name">
+                              <mat-icon matSuffix color="accent" [hidden]="!PersonalDetailsForm.controls['First_Name'].valid">check</mat-icon>
+                          <mat-error *ngIf ="PersonalDetailsForm.get('First_Name').errors?.required">Please Enter the First Name</mat-error>
                           </mat-form-field>
                       
                       </div>
 
-                      <div>
+                      <div class="SucessError">
 
                           <mat-form-field appearance="legacy" style="width:26vw">
                               <mat-label>Last Name</mat-label>
                               <input matInput placeholder="Enter Last Name" formControlName="Last_Name">
+                              <mat-icon matSuffix color="accent" [hidden]="!PersonalDetailsForm.controls['Last_Name'].valid">check</mat-icon>
+                              <mat-error *ngIf ="PersonalDetailsForm.get('Last_Name').errors?.required">Please Enter the Last Name</mat-error>
                           </mat-form-field>
                         
                       </div>
 
-                      <div>
+                      <div class="SucessError">
 
                           <mat-form-field appearance="legacy" style="width:26vw">
                             <mat-label>Email_Id</mat-label>
-                            <input matInput placeholder="Enter Email Id" formControlName="Email_Id">
+                            <input readonly matInput placeholder="Enter Email Id" formControlName="Email_Id">
+                            <mat-icon matSuffix color="accent" [hidden]="!PersonalDetailsForm.controls['Email_Id'].valid">check</mat-icon>
                           </mat-form-field>
                           
                       </div>
 
-                      <div>
+                      <div class="SucessError">
 
                           <mat-form-field appearance="legacy" style="width:26vw">
                             <mat-label>Contact</mat-label>
                             <input matInput placeholder="Enter Contact" formControlName="Contact">
+                            <mat-icon matSuffix color="accent" [hidden]="!PersonalDetailsForm.controls['Contact'].valid">check</mat-icon>
+                          <mat-error *ngIf ="PersonalDetailsForm.get('Contact').errors?.required">Please Enter the Contact</mat-error>
+                          <mat-error *ngIf ="PersonalDetailsForm.get('Contact').errors?.minlength">Enter 10 digit number</mat-error>
+                          <mat-error *ngIf ="PersonalDetailsForm.get('Contact').errors?.maxlength">Enter 10 digit number</mat-error>
                           </mat-form-field>
                           
                       </div>
 
-                      <div>
+                      <div class="SucessError">
 
                           <mat-form-field appearance="legacy" style="width:26vw">
                             <mat-label>Date Of Birth</mat-label>
                             <input matInput placeholder="Enter Date Of Birth" formControlName="DOB">
+                            <mat-icon matSuffix color="accent" [hidden]="!PersonalDetailsForm.controls['DOB'].valid">check</mat-icon>
+                            <mat-error *ngIf ="PersonalDetailsForm.get('DOB').errors?.required">Please Select Date Of Birth</mat-error>
                           </mat-form-field>
                           
                       </div>
@@ -94,25 +100,28 @@
                       <!-- ...................................... -->
 
                       <!-- SignUp Button -->
-                        <div class="row">
+                        <div class="row" >
 
                           <div class="col-4"><p></p></div>
                           
-                          <div class="col-4">
+                          <div class="col-4 FormTheme">
                             <mat-chip-list>
-                                <button mat-raised-button color="accent" selected type="submit">SignUp</button>
+                                <button mat-raised-button color="accent" selected type="submit" [disabled]="!PersonalDetailsForm.valid">SignUp</button>
                             </mat-chip-list>
                           </div> 
 
                           <div class="col-4"><p></p></div>
                         </div>
                       <!-- ............ -->
+                      <div class="row">
+                        <p></p>
+                      </div>
                   </form> 
               </div>
               
               <div class="col-1"></div>
 
-            </div>
+          </div>
         <!-- ...... -->
 
         </mat-tab>
@@ -120,6 +129,11 @@
         
         <!-- FirebaseData -->
         <mat-tab label="Show Firebase Data">
+
+          <div class="row">
+            <div><p></p></div>
+          </div>
+          
           <table mat-table #table [dataSource]="FirebaseTableData">
             
             <ng-container matColumnDef="First_Name">
@@ -158,6 +172,11 @@
 
         <!-- LocalHost Data -->
         <mat-tab label="Show Localhost Data">
+
+          <div class="row">
+            <div><p></p></div>
+          </div>
+
             <table mat-table #table [dataSource]="LocalHostTableData">
             
                 <ng-container matColumnDef="First_Name">
@@ -195,12 +214,12 @@
         <!-- ............. -->
       
       </mat-tab-group>
+
     </div>
 
-    <div class="col-2">
+    <div class="col-3">
       <p></p>
     </div>
     
   </div>
   
-</div>

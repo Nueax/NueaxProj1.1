@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone} from '@angular/core';
+import { Component, OnInit,ViewEncapsulation} from '@angular/core';
 import {Firebase} from '../Classes/FireBase';
 import {LocalHost} from '../Classes/LocalHost';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -9,13 +9,14 @@ import {MatTableDataSource, MatTabChangeEvent} from '@angular/material';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component'
 
 // ------- Angular Forms --------
-import {FormBuilder,FormGroup} from '@angular/forms';
+import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 // ------------------------------
 
 @Component({
   selector: 'app-first-page',
   templateUrl: './first-page.component.html',
-  styleUrls: ['./first-page.component.css']
+  styleUrls: ['./first-page.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 
@@ -29,21 +30,22 @@ export class FirstPageComponent implements OnInit
   Uid = this.AngularFireAuth.auth.currentUser.uid;
   PersonalDetailsForm:FormGroup;
 
+
   constructor(private Firebase:Firebase,private AngularFireDatabase:AngularFireDatabase,
              private Formbuilder:FormBuilder,private LocalHostService:LocalHostService,
              private InternetConnection:InternetConnectionComponent,private LocalHost:LocalHost,
-             private AngularFireAuth:AngularFireAuth,private NgZone:NgZone
+             private AngularFireAuth:AngularFireAuth
             ) 
   { }
 
   ngOnInit() 
   {
     this.PersonalDetailsForm = this.Formbuilder.group({
-                                                        First_Name:[],
-                                                        Last_Name:[],
+                                                        First_Name:[null,Validators.compose([Validators.required])],
+                                                        Last_Name:[null,Validators.compose([Validators.required])],
                                                         Email_Id:[this.EmailId],
-                                                        Contact:[],
-                                                        DOB:[]
+                                                        Contact:[null,Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10)])],
+                                                        DOB:[null,Validators.compose([Validators.required])]
                                                      });   
     
     if(this.InternetConnection.isInternetConnectcionAvailable)
