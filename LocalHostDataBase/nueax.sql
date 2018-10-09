@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Oct 07, 2018 at 12:21 AM
+-- Generation Time: Oct 09, 2018 at 03:19 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.13
 
@@ -29,8 +29,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `signup` (
-  `FirstName` varchar(20) NOT NULL,
-  `LastName` varchar(20) NOT NULL,
   `EmailId` varchar(20) NOT NULL,
   `Password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -39,13 +37,11 @@ CREATE TABLE `signup` (
 -- Dumping data for table `signup`
 --
 
-INSERT INTO `signup` (`FirstName`, `LastName`, `EmailId`, `Password`) VALUES
-('vikas', 'rana', 'vikas2510@gmail.com', 'password'),
-('Person1', 'Last2', 'p2@gmail.com', 'password'),
-('ABC', 'DEF', 'ABC@gmail.com', 'password'),
-('PQR', 'STU', 'PQR@gmail.com', 'password'),
-('', '', '', ''),
-('Hello', 'Person', 'HP@gmail.com', 'Password');
+INSERT INTO `signup` (`EmailId`, `Password`) VALUES
+('', ''),
+('person1@email.com', 'password'),
+('', ''),
+('person2@email.com', 'password');
 
 -- --------------------------------------------------------
 
@@ -67,11 +63,8 @@ CREATE TABLE `userdata` (
 --
 
 INSERT INTO `userdata` (`FirstName`, `LastName`, `Contact`, `EmailId`, `DOB`, `Timestamp`) VALUES
-('Fire', 'Base', '1231231231', 'FB@gmail.com', '2018-09-03', '2018-09-08 06:30:26'),
-('Hello1', 'Person', '1231231', 'HP@gmail.com', '2018-09-11', '2018-09-12 08:07:00'),
-('Vikas', 'Rana', '9736049872', 'vikas2510@gmail.com', '1995-10-25', '2018-10-07 06:44:05'),
-('vikas', 'rana', '8699645902', 'vikaskumar24@gmail.com', '1995-12-12', '2018-10-07 05:52:50'),
-('Sheldon', 'Cooper', '1234567891', 'vikasrana2510@gmail.com', '2018-09-02', '2018-09-02 10:58:09');
+('Person1', 'Last1', '1234567890', 'person1@email.com', '1995-10-12', '2018-10-09 08:48:59'),
+('Person2', 'Last Name 2', '9876543210', 'person2@email.com', '1995-01-01', '2018-10-09 10:18:16');
 
 --
 -- Indexes for dumped tables

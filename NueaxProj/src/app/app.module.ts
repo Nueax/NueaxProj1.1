@@ -29,6 +29,8 @@ import { LoginSignupComponent } from './login-signup/login-signup.component';
 
 import{Firebase} from "./Classes/FireBase";
 import { LocalHost } from './Classes/LocalHost';
+import {Session } from './Classes/Session';
+
 
 var config = {
   apiKey: "AIzaSyDYKWW2AvLTogIVjdezvTRjZGBWh1wFiDM",
@@ -48,7 +50,7 @@ var config = {
               HttpModule,AngularFireModule.initializeApp(config),AngularFireAuthModule,
               AngularFireDatabaseModule,Routing
            ],
-  providers: [InternetConnectionComponent,LocalHost,Firebase],
+  providers: [InternetConnectionComponent,LocalHost,Firebase,Session],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

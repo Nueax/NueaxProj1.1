@@ -40,10 +40,11 @@ export class LocalHost
     {
       this.LocalHostService.Login(FormValues.EmailId,FormValues.Password)
           .subscribe(result=>{
-                                // console.log("Inside LocalHost LogIn");
-                                // console.log(result[1]);
-                                if(result[2])
+                                console.log("Inside LocalHost LogIn");
+                                console.log(result[1]);
+                                if(result[1])
                                 {
+                                  console.log(this.InternetConnectionComponent.isInternetConnectcionAvailable);
                                   if(this.InternetConnectionComponent.isInternetConnectcionAvailable)
                                   {
                                     
@@ -69,11 +70,21 @@ export class LocalHost
   
    InsertDataInLocalHost(FormValues)
    {
-      this.LocalHostService.Profile(FormValues).subscribe(Response=>{console.log(Response)});
+      this.LocalHostService.Profile(FormValues)
+          .subscribe(Response=>{
+                                  this.MatSnackBar.open("Sucessfully Submit the Data",'OK',{
+                                    verticalPosition:'bottom', 
+                                    //horizontalPosition:'left',
+                                    panelClass: ['sucess-snackbar']
+                                                                                            }
+                                                        );
+                              }
+                     );
    }
 
    Go_To_First_Page()
   {
+    console.log("Go to first page");
     this.Router.navigateByUrl("FirstPage");
   }  
 

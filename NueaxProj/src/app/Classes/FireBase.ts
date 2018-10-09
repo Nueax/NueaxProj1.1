@@ -52,7 +52,7 @@ export class Firebase
                            console.log(info);
                          }
                   ).then(Info=>{
-                                  if(FirebaseConnectionAvailable==true)
+                                  if(FirebaseConnectionAvailable)
                                   {
                                      console.log("Inside");
                                      this.Go_To_First_Page();

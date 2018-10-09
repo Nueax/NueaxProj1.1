@@ -1,11 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,NgZone} from '@angular/core';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component'
 import {Firebase} from '../Classes/FireBase';
 import {LocalHost} from '../Classes/LocalHost';
 import {PasswordValidation} from '../CustomValidation/ConfirmPassword';
-
+import {Session} from '../Classes/Session';
 // ------- Angular Forms --------
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+
 // ------------------------------
 @Component({
   selector: 'app-login-signup',
@@ -19,6 +20,7 @@ export class LoginSignupComponent implements OnInit
   LogInButtonColor:any="primary";
   SignUpFormHidden:any=true;
   LogInFormHidden:any=false;
+  EmailId:any;
 
  // --------------- Forms ------------
     SignUpForm:FormGroup;
@@ -27,7 +29,7 @@ export class LoginSignupComponent implements OnInit
 
   constructor(
               private Formbuilder:FormBuilder,private InternetConnection:InternetConnectionComponent,
-              private Firebase:Firebase,private LocalHost:LocalHost
+              private Firebase:Firebase,private LocalHost:LocalHost,private NgZone:NgZone, private Session:Session
             ) 
   { 
 
@@ -70,6 +72,8 @@ export class LoginSignupComponent implements OnInit
 
   Login(FormValue)
   {
+    
+    this.Session.SetEmailId(FormValue.EmailId);
     if(this.InternetConnection.isInternetConnectcionAvailable)
     {
       this.Firebase.FirebaseLogin(FormValue);

@@ -40,8 +40,8 @@ export class LocalHostService {
     return this._http.post("http://localhost:8080/APIs/Nueax/Get_LocalHost_Data.php",{"EmailId":EmailId}).map(res=>res.json());
   }
 
-  public Get_EmailId_Password_From_LocalHost()
+  public Get_EmailId_LocalHost()
   {
-    return this._http.get("http://localhost:8080/APIs/Nueax/Get_EmailId_Password.php").map(res=>res.json());
+    return this._http.get("http://localhost:8080/APIs/Nueax/Get_EmailId.php").map(res=>res.json());
   }
 }

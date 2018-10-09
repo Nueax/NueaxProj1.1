@@ -1,13 +1,12 @@
-import { Component, OnInit,ViewEncapsulation} from '@angular/core';
+import { Component, OnInit,ViewEncapsulation, NgZone} from '@angular/core';
 import {Firebase} from '../Classes/FireBase';
 import {LocalHost} from '../Classes/LocalHost';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {LocalHostService} from '../LocalHostService/local-host.service';
 import {MatTableDataSource, MatTabChangeEvent} from '@angular/material';
-
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component'
-
+import {Session} from "../Classes/Session";
 // ------- Angular Forms --------
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 // ------------------------------
@@ -26,24 +25,34 @@ export class FirstPageComponent implements OnInit
   FirebaseTableData = new MatTableDataSource();
   LocalHostTableData = new MatTableDataSource();
   EmailField = true;
-  EmailId=this.AngularFireAuth.auth.currentUser.email;
-  Uid = this.AngularFireAuth.auth.currentUser.uid;
+  EmailId:any;
+  Uid : any;
   PersonalDetailsForm:FormGroup;
 
 
   constructor(private Firebase:Firebase,private AngularFireDatabase:AngularFireDatabase,
              private Formbuilder:FormBuilder,private LocalHostService:LocalHostService,
              private InternetConnection:InternetConnectionComponent,private LocalHost:LocalHost,
-             private AngularFireAuth:AngularFireAuth
+             private AngularFireAuth:AngularFireAuth,private GetEmailId:Session,
+             private NgZone:NgZone
             ) 
   { }
 
   ngOnInit() 
   {
+    if(this.InternetConnection.isInternetConnectcionAvailable)
+    {
+      this.EmailId = this.AngularFireAuth.auth.currentUser.email;
+      this.Uid = this.AngularFireAuth.auth.currentUser.uid;
+    }
+    else
+    {
+      this.EmailId = this.GetEmailId.GetEmailId();
+    }
     this.PersonalDetailsForm = this.Formbuilder.group({
                                                         First_Name:[null,Validators.compose([Validators.required])],
                                                         Last_Name:[null,Validators.compose([Validators.required])],
-                                                        Email_Id:[this.EmailId],
+                                                        Email_Id:[this.NgZone.run(()=>this.EmailId)],
                                                         Contact:[null,Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10)])],
                                                         DOB:[null,Validators.compose([Validators.required])]
                                                      });   
@@ -97,8 +106,7 @@ export class FirstPageComponent implements OnInit
       this.Firebase.Firebase_Data_Insertion(FormValues);
     }
     
-    this.LocalHost.InsertDataInLocalHost(FormValues);
-    
+    this.LocalHost.InsertDataInLocalHost(FormValues);    
   }
 
   Get_Firebase_TimeStamp()

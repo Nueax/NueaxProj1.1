@@ -29,7 +29,7 @@
 	    $Output[0]="Mysql connected sucessfully";
     }
                 
-    $sql_query = "replace into signup(FirstName,LastName,EmailId,Password)values('$FirstName','$LastName','$EmailId','$Password')"; 
+    $sql_query = "replace into signup(EmailId,Password)values('$EmailId','$Password')"; 
     $result = $connection->query($sql_query);
     
 
