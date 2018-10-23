@@ -6,6 +6,7 @@ import {MatSnackBar,MatSnackBarConfig} from '@angular/material'
 import { Router } from '@angular/router';
 import {LoginSignupComponent} from '../login-signup/login-signup.component'
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ShareData } from './ShareData';
 
 
 
@@ -19,7 +20,7 @@ export class LocalHost
    constructor(
                 private LocalHostService:LocalHostService,private AngularFireAuth:AngularFireAuth,
                 private InternetConnectionComponent:InternetConnectionComponent,
-                private Router:Router,private MatSnackBar:MatSnackBar
+                private Router:Router,private MatSnackBar:MatSnackBar,private ShareData:ShareData
               )
    {}
 
@@ -50,6 +51,7 @@ export class LocalHost
                                     
                                     this.FirebaseSignup(FormValues);
                                   }
+                                  this.ShareData.setEmailId(FormValues.EmailId);
                                   this.Go_To_First_Page();
                                 }
                                 else
@@ -63,8 +65,7 @@ export class LocalHost
                               
                                  
                               }
-                    )
-                            
+                    )              
    }
 
   

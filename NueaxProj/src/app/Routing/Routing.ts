@@ -12,11 +12,12 @@ const routes: Routes =
 [
  {path:"", redirectTo:"LoginPage", pathMatch:"full"}, 
  {path:"LoginPage", component:LoginSignupComponent},
- {path:"FirstPage", component:FirstPageComponent},
-];
+ {path:"FirstPage", component:FirstPageComponent}
+]
  
 @NgModule({
- imports: [
+ imports: 
+ [
    CommonModule,
    RouterModule.forRoot(routes)
  ],

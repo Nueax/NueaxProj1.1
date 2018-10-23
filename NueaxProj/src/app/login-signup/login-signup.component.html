@@ -56,7 +56,7 @@
           <!-- ................................................................................. -->
 
           <!-- ... ROW:3 :- Login Form ........ -->
-            <div class="row" [hidden]="LogInFormHidden">
+            <div class="row" *ngIf="!LogInFormHidden">
                 
               <div class="col-1"></div>
 
@@ -135,7 +135,7 @@
           <!-- ........................... -->
 
           <!-- SignUp -->
-              <div class="row" [hidden]="SignUpFormHidden">
+              <div class="row" *ngIf="!SignUpFormHidden">
                   
                 <div class="col-1"></div>
 
@@ -195,7 +195,7 @@
                             
                             <div class="col-4">
                               <mat-chip-list>
-                                  <button mat-raised-button color="accent" selected type="submit" [disabled]="!SignUpForm.valid">SignUp</button>
+                                <button mat-raised-button color="accent" selected type="submit" [disabled]="!SignUpForm.valid" [class.disabledcolor]="!SignUpForm.valid" >SignUp</button>
                               </mat-chip-list>
                             </div> 
       

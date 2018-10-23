@@ -6,9 +6,11 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {LocalHostService} from '../LocalHostService/local-host.service';
 import {MatTableDataSource, MatTabChangeEvent} from '@angular/material';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component'
-import {Session} from "../Classes/Session";
+
 // ------- Angular Forms --------
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ShareData } from '../Classes/ShareData';
 // ------------------------------
 
 @Component({
@@ -33,8 +35,8 @@ export class FirstPageComponent implements OnInit
   constructor(private Firebase:Firebase,private AngularFireDatabase:AngularFireDatabase,
              private Formbuilder:FormBuilder,private LocalHostService:LocalHostService,
              private InternetConnection:InternetConnectionComponent,private LocalHost:LocalHost,
-             private AngularFireAuth:AngularFireAuth,private GetEmailId:Session,
-             private NgZone:NgZone
+             private AngularFireAuth:AngularFireAuth,private NgZone:NgZone, private route: ActivatedRoute,
+             private ShareData:ShareData
             ) 
   { }
 
@@ -47,7 +49,11 @@ export class FirstPageComponent implements OnInit
     }
     else
     {
-      this.EmailId = this.GetEmailId.GetEmailId();
+      this.ShareData.currentEmailId.subscribe(EmailId=>{
+                                                          this.EmailId = EmailId;
+                                                          //this.
+                                                          console.log("Sharing the data"+EmailId);
+                                                      });
     }
     this.PersonalDetailsForm = this.Formbuilder.group({
                                                         First_Name:[null,Validators.compose([Validators.required])],
@@ -117,7 +123,6 @@ export class FirstPageComponent implements OnInit
                                               var Email_Id = this.AngularFireAuth.auth.currentUser.email;
                                               this.Get_LocalHost_TimeStamp(Email_Id,Firebase_TimeStamp);    
                                             }
-                                         
                               );
     }
 

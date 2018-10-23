@@ -82,7 +82,7 @@
 
                           <mat-form-field appearance="legacy" style="width:26vw">
                             <mat-label>Date Of Birth</mat-label>
-                            <input matInput placeholder="Enter Date Of Birth" formControlName="DOB">
+                            <input matInput placeholder="Enter Date Of Birth" formControlName="DOB" type="date"> 
                             <mat-icon matSuffix color="accent" [hidden]="!PersonalDetailsForm.controls['DOB'].valid">check</mat-icon>
                             <mat-error *ngIf ="PersonalDetailsForm.get('DOB').errors?.required">Please Select Date Of Birth</mat-error>
                           </mat-form-field>

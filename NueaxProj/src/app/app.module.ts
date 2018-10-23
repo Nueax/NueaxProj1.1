@@ -21,15 +21,16 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 //----------- For Reactive Forms -----------------
 import {ReactiveFormsModule} from "@angular/forms";
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 //-------------------------------------------
+
+import {ShareData} from './Classes/ShareData';
 
 import { FirstPageComponent } from './first-page/first-page.component';
 import { LoginSignupComponent } from './login-signup/login-signup.component';
 
 import{Firebase} from "./Classes/FireBase";
 import { LocalHost } from './Classes/LocalHost';
-import {Session } from './Classes/Session';
 
 
 var config = {
@@ -50,7 +51,7 @@ var config = {
               HttpModule,AngularFireModule.initializeApp(config),AngularFireAuthModule,
               AngularFireDatabaseModule,Routing
            ],
-  providers: [InternetConnectionComponent,LocalHost,Firebase,Session],
+  providers: [InternetConnectionComponent,LocalHost,Firebase,ShareData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

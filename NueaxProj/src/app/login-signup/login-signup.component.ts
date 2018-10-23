@@ -3,7 +3,7 @@ import {InternetConnectionComponent} from '../internet-connection/internet-conne
 import {Firebase} from '../Classes/FireBase';
 import {LocalHost} from '../Classes/LocalHost';
 import {PasswordValidation} from '../CustomValidation/ConfirmPassword';
-import {Session} from '../Classes/Session';
+
 // ------- Angular Forms --------
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 
@@ -29,7 +29,7 @@ export class LoginSignupComponent implements OnInit
 
   constructor(
               private Formbuilder:FormBuilder,private InternetConnection:InternetConnectionComponent,
-              private Firebase:Firebase,private LocalHost:LocalHost,private NgZone:NgZone, private Session:Session
+              private Firebase:Firebase,private LocalHost:LocalHost,private NgZone:NgZone
             ) 
   { 
 
@@ -72,8 +72,6 @@ export class LoginSignupComponent implements OnInit
 
   Login(FormValue)
   {
-    
-    this.Session.SetEmailId(FormValue.EmailId);
     if(this.InternetConnection.isInternetConnectcionAvailable)
     {
       this.Firebase.FirebaseLogin(FormValue);
