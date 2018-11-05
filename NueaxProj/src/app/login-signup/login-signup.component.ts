@@ -22,7 +22,7 @@ export class LoginSignupComponent implements OnInit
   LogInFormHidden:any=false;
   EmailId:any;
 
- // --------------- Forms ------------
+  // --------------- Forms ------------
     SignUpForm:FormGroup;
     LoginForm:FormGroup;
   //-----------------------------------
@@ -49,47 +49,68 @@ export class LoginSignupComponent implements OnInit
     this.LoginForm = this.Formbuilder.group({
                                                 EmailId:[null,Validators.compose([Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])],
                                                 Password:[null,Validators.compose([Validators.required,Validators.minLength(6)])],
-                                            });     
+                                            });  
+                                            
+            
   }
 
-  ShowLogInForm()
-  {
-      this.LogInButtonColor="primary";
-      this.LogInFormHidden = false;
+  //----Show the Login form----
+        ShowLogInForm()
+        {
+            this.LogInButtonColor="primary";
+            this.LogInFormHidden = false;
 
-      this.SignUpButtonColor="warn";
-      this.SignUpFormHidden=true;
-  }
+            this.SignUpButtonColor="warn";
+            this.SignUpFormHidden=true;
+        }
+  //----------------------------
 
-  ShowSignUpForm()
-  {
-      this.LogInButtonColor="warn";
-      this.LogInFormHidden = true;
+  //----Show the Sign Up form----
+        ShowSignUpForm()
+        {
+            this.LogInButtonColor="warn";
+            this.LogInFormHidden = true;
 
-      this.SignUpButtonColor="primary";
-      this.SignUpFormHidden=false;
-  }
-
-  Login(FormValue)
-  {
-    if(this.InternetConnection.isInternetConnectcionAvailable)
+            this.SignUpButtonColor="primary";
+            this.SignUpFormHidden=false;
+        }
+  //----------------------------
+  
+  //------ Login ------------
+    Login(FormValue)
     {
-      this.Firebase.FirebaseLogin(FormValue);
+      console.log("Step:1 :- Login Function call");
+      console.log("Step:2 :-Login Check Internet Connection");
+      console.log(this.InternetConnection.isInternetConnectcionAvailable);
+      
+      if(this.InternetConnection.isInternetConnectcionAvailable==true)
+      {
+        console.log("Step:3 :-Login Internet Connection Available");
+        console.log("Step:4 :-Calling Firebase Login Function");
+        this.Firebase.FirebaseLogin(FormValue,"Primary");
+      }
+      else
+      { 
+        console.log("Step:3 :-Login Internet Connection Available");
+        console.log("Step:4 :-Calling  Login Function");
+        this.LocalHost.LocalHostLogIn(FormValue);
+      } 
     }
-    else
-    { 
-      this.LocalHost.LocalHostLogIn(FormValue);
-    } 
-  }
+  //-------------------------  
 
-  SignUp(FormValue)
-  {
-    if(this.InternetConnection.isInternetConnectcionAvailable)
+  //------ Sign Up ------------
+    SignUp(FormValue)
     {
-      this.Firebase.FirebaseSignup(FormValue);
+      if(this.InternetConnection.isInternetConnectcionAvailable)
+      {
+        this.Firebase.FirebaseSignup(FormValue,"Primary");
+        this.LocalHost.LocalHostSignUp(FormValue,"Secondary");
+      }
+      else
+      {
+        this.LocalHost.LocalHostSignUp(FormValue,"Primary");
+      }
+     
     }
-    
-    this.LocalHost.LocalHostSignUp(FormValue);
-    
-  }
+  //---------------------------
 }

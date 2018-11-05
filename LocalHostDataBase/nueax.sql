@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Oct 09, 2018 at 03:19 AM
+-- Generation Time: Nov 05, 2018 at 02:46 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.13
 
@@ -38,10 +38,12 @@ CREATE TABLE `signup` (
 --
 
 INSERT INTO `signup` (`EmailId`, `Password`) VALUES
-('', ''),
-('person1@email.com', 'password'),
-('', ''),
-('person2@email.com', 'password');
+('p1@email.com', 'password'),
+('p2@email.com', 'password'),
+('p3@email.com', 'password'),
+('p4@email.com', 'password'),
+('p5@email.com', 'password'),
+('p6@email.com', 'password');
 
 -- --------------------------------------------------------
 
@@ -55,20 +57,29 @@ CREATE TABLE `userdata` (
   `Contact` varchar(10) NOT NULL,
   `EmailId` varchar(30) NOT NULL,
   `DOB` date NOT NULL,
-  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `TimeStamp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `userdata`
 --
 
-INSERT INTO `userdata` (`FirstName`, `LastName`, `Contact`, `EmailId`, `DOB`, `Timestamp`) VALUES
-('Person1', 'Last1', '1234567890', 'person1@email.com', '1995-10-12', '2018-10-09 08:48:59'),
-('Person2', 'Last Name 2', '9876543210', 'person2@email.com', '1995-01-01', '2018-10-09 10:18:16');
+INSERT INTO `userdata` (`FirstName`, `LastName`, `Contact`, `EmailId`, `DOB`, `TimeStamp`) VALUES
+('p1', 'l1', '1231231231', 'p1@email.com', '2018-11-20', '1541405818328'),
+('p21', 'l2', '1231231231', 'p2@email.com', '2018-11-14', '1541408121346'),
+('P3', 'L3', '1231231123', 'p3@email.com', '2018-11-13', '1541408268850'),
+('p4', 'l4', '2342341212', 'p4@email.com', '2018-11-10', '1541413041905'),
+('p5', 'l5', '1231231231', 'p5@email.com', '2018-11-22', '1541413200650');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `signup`
+--
+ALTER TABLE `signup`
+  ADD PRIMARY KEY (`EmailId`);
 
 --
 -- Indexes for table `userdata`

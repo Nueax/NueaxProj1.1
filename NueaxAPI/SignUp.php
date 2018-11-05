@@ -5,9 +5,7 @@
     header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size,X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");
    
     $data = json_decode(file_get_contents("php://Input"));
-   
-    $FirstName = $data->FirstName;
-    $LastName = $data->LastName;
+
     $EmailId =  $data->EmailId;
     $Password = $data->Password;
 
@@ -28,10 +26,12 @@
 	{
 	    $Output[0]="Mysql connected sucessfully";
     }
-                
-    $sql_query = "replace into signup(EmailId,Password)values('$EmailId','$Password')"; 
-    $result = $connection->query($sql_query);
     
+    if($EmailId!="" && $Password!="")
+    {
+        $sql_query = "replace into signup(EmailId,Password)values('$EmailId','$Password')"; 
+        $result = $connection->query($sql_query);
+    }
 
     if($result==True)
     {

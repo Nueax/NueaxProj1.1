@@ -5,6 +5,8 @@ import {LocalHost} from '../Classes/LocalHost';
 //---------------- Routing ---------------
 import {Router} from '@angular/router';
 import { Injectable, NgZone} from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { ShareData } from './ShareData';
 //---------------------------------------
 
 @Injectable()
@@ -12,14 +14,11 @@ export class Firebase
 {
     constructor(
                  private AngularFireAuth:AngularFireAuth,private AngularFireDatabase:AngularFireDatabase,
-                 private Router:Router,private NgZone:NgZone,private LocalHost:LocalHost
-                )
-    {
-        
-    }
-
-    
-    FirebaseSignup(FormValues)
+                 private Router:Router,private NgZone:NgZone,private LocalHost:LocalHost,private MatSnackBar:MatSnackBar,
+                 private ShareData:ShareData
+               ){}
+ 
+    FirebaseSignup(FormValues,Type)
     {
         var no_error = true;
         this.AngularFireAuth.auth.createUserWithEmailAndPassword(FormValues.EmailId,FormValues.Password)
@@ -31,37 +30,50 @@ export class Firebase
                   )
             .then (
                     ()=>{
-                            if(no_error==true)
+                            if(no_error==true && Type=="Primary")
                             {
                               console.log("SignUp Sucessfully")
-                            }
-                        }
-                  );
-    }
-
-    FirebaseLogin(FormValues)
-    {
-        console.log("Enter login page");
-        console.log(FormValues);
+                              this.MatSnackBar.open("SignUp Sucessfully",'OK',{
+                                                                                verticalPosition:'bottom', 
+                                                                                //horizontalPosition:'left',
+                                                                                panelClass: ['sucess-snackbar']                                                                                        
+                                                                              }
+                                                    ).afterDismissed().subscribe(()=>{
+                                                                                        console.log("Inside SnackBar");
+                                                                                        window.location.reload();
+                                                                                        //this.Router.navigateByUrl("LoginPage")
+                                                                                    })
+                              }
+                            })
+                            
     
-        let FirebaseConnectionAvailable = true;
+    }
+                
+    FirebaseLogin(FormValues,Type)
+    {
+         let FirebaseConnectionAvailable = true;
         this.AngularFireAuth.auth.signInWithEmailAndPassword(FormValues.EmailId,FormValues.Password)
             .catch(info=>
                          {
+                           console.log("Step:5 :-Credentials are not valid");  
                            FirebaseConnectionAvailable =false;
-                           console.log(info);
                          }
                   ).then(Info=>{
-                                  if(FirebaseConnectionAvailable)
-                                  {
-                                     console.log("Inside");
-                                     this.Go_To_First_Page();
+                                  if(Type=="Primary")
+                                  {  
+                                    if(FirebaseConnectionAvailable)
+                                    {
+                                        this.LocalHost.LocalHostSignUp(FormValues,"Secondary");
+                                        this.ShareData.setEmailId(FormValues.EmailId,FormValues.Password);
+                                        this.Go_To_First_Page();
+                                    }
+                                    else
+                                    {
+                                        console.log("Step:6 :- Credentials Check in Local Host");
+                                        this.LocalHost.LocalHostLogIn(FormValues);
+                                    }
                                   }
-                                  else
-                                  {
-                                    this.LocalHost.LocalHostLogIn(FormValues);
-                                  }
-                               }
+                                }
                         )
     }
     
@@ -69,7 +81,7 @@ export class Firebase
     {
         console.log(FormValues);
    
-        var TimeStamp = Date();
+        var TimeStamp = Date.now().toString();
         var Uid = this.AngularFireAuth.auth.currentUser.uid;
         var ref = this.AngularFireDatabase.database.ref("Signup").child(Uid);
         ref.set(  
@@ -81,12 +93,18 @@ export class Firebase
                     DOB:FormValues.DOB,
                     TimeStamp: TimeStamp
                 }
-            )
+            ).then(()=>{ 
+                          this.MatSnackBar.open("Sucessfully Submit the Data to Firebase",'OK',{
+                                                                                        verticalPosition:'bottom', 
+                                                                                        //horizontalPosition:'left',
+                                                                                        panelClass: ['sucess-snackbar']                                                                                        
+                                                                                    }
+                                                )
+                        })
     }
     
     Go_To_First_Page()
     {
        this.Router.navigateByUrl("FirstPage");
     }
-
 }

@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {LocalHostService} from '../LocalHostService/local-host.service';
 import { Injectable } from '@angular/core';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component';
-import {MatSnackBar,MatSnackBarConfig} from '@angular/material'
+import {MatSnackBar} from '@angular/material'
 import { Router } from '@angular/router';
 import {LoginSignupComponent} from '../login-signup/login-signup.component'
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -24,62 +24,77 @@ export class LocalHost
               )
    {}
 
-   LocalHostSignUp(FormValues)
+   LocalHostSignUp(FormValues,Type)
    {
         this.LocalHostService.SignUp(FormValues)
                               .subscribe(res=>{
-                                                this.MatSnackBar.open("Sign Up Sucessfully. Now you can login.","OK", {
-                                                  verticalPosition:'bottom', 
-                                                  //horizontalPosition:'left',
-                                                  panelClass: ['sucess-snackbar']
-                                                  });
+                                                if(Type=="Primary")
+                                                {
+                                                  this.MatSnackBar.open("Sign Up Sucessfully. Now you can login.","OK", {
+                                                    verticalPosition:'bottom', 
+                                                    //horizontalPosition:'left',
+                                                    panelClass: ['sucess-snackbar']
+                                                    }).afterDismissed().subscribe(()=>{
+                                                      console.log("Inside SnackBar");
+                                                      window.location.reload();})
+                                                }
                                               }
                                         );               
    }
 
-    LocalHostLogIn(FormValues)
-    {
-      this.LocalHostService.Login(FormValues.EmailId,FormValues.Password)
-          .subscribe(result=>{
-                                console.log("Inside LocalHost LogIn");
-                                console.log(result[1]);
-                                if(result[1])
+  LocalHostLogIn(FormValues)
+  {
+    this.LocalHostService.Login(FormValues.EmailId,FormValues.Password)
+        .subscribe(result=>{
+                              console.log("Step:5 :-Credentials Checking");
+                              if(result[1])
+                              {
+                                console.log("Step:6 :-Credentials are valid");
+                                console.log("Step:7 :-Checking For Internet Connection");
+                                if(this.InternetConnectionComponent.isInternetConnectcionAvailable)
                                 {
-                                  console.log(this.InternetConnectionComponent.isInternetConnectcionAvailable);
-                                  if(this.InternetConnectionComponent.isInternetConnectcionAvailable)
-                                  {
-                                    
-                                    this.FirebaseSignup(FormValues);
-                                  }
-                                  this.ShareData.setEmailId(FormValues.EmailId);
-                                  this.Go_To_First_Page();
+                                  console.log("Step:8 :- Firebase Sign Up");
+                                  this.FirebaseSignup(FormValues);
                                 }
-                                else
-                                {
-                                 this.MatSnackBar.open("Invalid EmailId and Password",'OK',{
-                                  verticalPosition:'bottom', 
-                                  //horizontalPosition:'left',
-                                   panelClass: ['error-snackbar']
-                                  });
-                                }  
-                              
-                                 
+                                console.log("Step:8 :- Set Email Id And Password For Sharing");
+                                this.ShareData.setEmailId(FormValues.EmailId,FormValues.Password);
+                                
+                                console.log("Step:9 Go To First Page");
+                                this.Go_To_First_Page();
                               }
-                    )              
+                              else
+                              {
+                                this.MatSnackBar.open("Local Host Invalid EmailId and Password LocalHost",'OK',{
+                                verticalPosition:'bottom', 
+                                //horizontalPosition:'left',
+                                 panelClass: ['error-snackbar']
+                                });
+                              }  
+                            },
+                    error=>{
+                              this.MatSnackBar.open("Local Host Invalid EmailId and Password LocalHost",'OK',{
+                                verticalPosition:'bottom', 
+                                //horizontalPosition:'left',
+                                panelClass: ['error-snackbar']
+                                });
+                           }
+                  )              
    }
-
   
-   InsertDataInLocalHost(FormValues)
+   InsertDataInLocalHost(FormValues,TimeStamp,Type)
    {
-      this.LocalHostService.Profile(FormValues)
+      this.LocalHostService.Profile(FormValues,TimeStamp)
           .subscribe(Response=>{
-                                  this.MatSnackBar.open("Sucessfully Submit the Data",'OK',{
-                                    verticalPosition:'bottom', 
-                                    //horizontalPosition:'left',
-                                    panelClass: ['sucess-snackbar']
-                                                                                            }
-                                                        );
-                              }
+                                  if(Type=="Primary")
+                                  {
+                                    this.MatSnackBar.open("Sucessfully Submit the Data",'OK',{
+                                      verticalPosition:'bottom', 
+                                      //horizontalPosition:'left',
+                                      panelClass: ['sucess-snackbar']
+                                                                                             }
+                                                          );
+                                  }
+                               }
                      );
    }
 
