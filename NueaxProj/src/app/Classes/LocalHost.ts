@@ -28,6 +28,8 @@ export class LocalHost
    {
         this.LocalHostService.SignUp(FormValues)
                               .subscribe(res=>{
+                                                console.log("TYPE");
+                                                console.log(Type);
                                                 if(Type=="Primary")
                                                 {
                                                   this.MatSnackBar.open("Sign Up Sucessfully. Now you can login.","OK", {
@@ -38,7 +40,10 @@ export class LocalHost
                                                       console.log("Inside SnackBar");
                                                       window.location.reload();})
                                                 }
-                                              }
+                                              },
+                                          error=>{
+                                                    
+                                                 }
                                         );               
    }
 

@@ -43,11 +43,6 @@ export class InternetConnectionComponent implements OnInit
                                                                   this.ShareData.set_InternetConnection(this.isInternetConnectcionAvailable);
                                                                 }
 
-                                                                this.NgZone.run(()=>{
-                                                                                      this.isInternetConnectcionAvailable = isConnected;
-                                                                                      this.ShareData.set_InternetConnection(this.isInternetConnectcionAvailable);
-                                                                                    }
-                                                                               );
                                                               }
                                               )
   }

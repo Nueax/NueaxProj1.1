@@ -1,11 +1,12 @@
-import { Component, OnInit,NgZone} from '@angular/core';
+import { Component, OnInit,NgZone, OnDestroy} from '@angular/core';
 import {InternetConnectionComponent} from '../internet-connection/internet-connection.component'
 import {Firebase} from '../Classes/FireBase';
 import {LocalHost} from '../Classes/LocalHost';
 import {PasswordValidation} from '../CustomValidation/ConfirmPassword';
-
+import {ISubscription} from 'rxjs-compat/Subscription';
 // ------- Angular Forms --------
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import { ShareData } from '../Classes/ShareData';
 
 // ------------------------------
 @Component({
@@ -13,7 +14,7 @@ import {FormBuilder,FormGroup,Validators} from '@angular/forms';
   templateUrl: './login-signup.component.html',
   styleUrls: ['./login-signup.component.css']
 })
-export class LoginSignupComponent implements OnInit 
+export class LoginSignupComponent implements OnInit,OnDestroy
 {
 
   SignUpButtonColor:any="warn";
@@ -21,7 +22,8 @@ export class LoginSignupComponent implements OnInit
   SignUpFormHidden:any=true;
   LogInFormHidden:any=false;
   EmailId:any;
-
+  Subs1:ISubscription;
+  Subs2:ISubscription;
   // --------------- Forms ------------
     SignUpForm:FormGroup;
     LoginForm:FormGroup;
@@ -29,7 +31,7 @@ export class LoginSignupComponent implements OnInit
 
   constructor(
               private Formbuilder:FormBuilder,private InternetConnection:InternetConnectionComponent,
-              private Firebase:Firebase,private LocalHost:LocalHost,private NgZone:NgZone
+              private Firebase:Firebase,private LocalHost:LocalHost,private ShareData:ShareData
             ) 
   { 
 
@@ -79,38 +81,57 @@ export class LoginSignupComponent implements OnInit
   //------ Login ------------
     Login(FormValue)
     {
-      console.log("Step:1 :- Login Function call");
-      console.log("Step:2 :-Login Check Internet Connection");
-      console.log(this.InternetConnection.isInternetConnectcionAvailable);
       
-      if(this.InternetConnection.isInternetConnectcionAvailable==true)
-      {
-        console.log("Step:3 :-Login Internet Connection Available");
-        console.log("Step:4 :-Calling Firebase Login Function");
-        this.Firebase.FirebaseLogin(FormValue,"Primary");
-      }
-      else
-      { 
-        console.log("Step:3 :-Login Internet Connection Available");
-        console.log("Step:4 :-Calling  Login Function");
-        this.LocalHost.LocalHostLogIn(FormValue);
-      } 
+      this.Subs1 =this.ShareData.currentInternetConnection
+      .subscribe(InternetConnection=>{
+                                        
+                                        console.log("Step:1 :- Login Function call");
+                                        console.log("Step:2 :-Login Check Internet Connection");
+                                        console.log(InternetConnection);
+
+                                        if(InternetConnection)
+                                        {
+                                          console.log("Step:3 :-Login Internet Connection Available");
+                                          console.log("Step:4 :-Calling Firebase Login Function");
+                                          this.Firebase.FirebaseLogin(FormValue,"Primary");
+                                        }
+                                        else
+                                        { 
+                                          console.log("Step:3 :-Login Internet Connection Available");
+                                          console.log("Step:4 :-Calling  Login Function");
+                                          this.LocalHost.LocalHostLogIn(FormValue);
+                                        } 
+      })
     }
   //-------------------------  
 
   //------ Sign Up ------------
     SignUp(FormValue)
     {
-      if(this.InternetConnection.isInternetConnectcionAvailable)
-      {
-        this.Firebase.FirebaseSignup(FormValue,"Primary");
-        this.LocalHost.LocalHostSignUp(FormValue,"Secondary");
-      }
-      else
-      {
-        this.LocalHost.LocalHostSignUp(FormValue,"Primary");
-      }
+      console.log("INTERNET CONNECTION");
+      this.Subs1 =this.ShareData.currentInternetConnection
+                      .subscribe(InternetConnection=>{
+                                                        if(InternetConnection)
+                                                        {
+                                                          this.Firebase.FirebaseSignup(FormValue,"Primary");
+                                                          this.LocalHost.LocalHostSignUp(FormValue,"Secondary");
+                                                          console.log("Secondary Local Host Sign Up");
+                                                        }
+                                                        else
+                                                        {
+                                                          console.log("Primary Local Host Sign Up");
+                                                          this.LocalHost.LocalHostSignUp(FormValue,"Primary");
+                                                        }
+                                                      }
+                                );
+                         
+     
      
     }
   //---------------------------
+
+  ngOnDestroy(): void 
+  {
+    this.Subs1.unsubscribe();  
+  }
 }

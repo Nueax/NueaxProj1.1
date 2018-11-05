@@ -63,8 +63,11 @@ export class Firebase
                                   {  
                                     if(FirebaseConnectionAvailable)
                                     {
+                                        console.log("Step:6 :-Local Host Sign Up");  
                                         this.LocalHost.LocalHostSignUp(FormValues,"Secondary");
+                                        console.log("Step:7 :- Set EmailID and Password");  
                                         this.ShareData.setEmailId(FormValues.EmailId,FormValues.Password);
+                                        console.log("Step:8 :- Go To First Page");  
                                         this.Go_To_First_Page();
                                     }
                                     else

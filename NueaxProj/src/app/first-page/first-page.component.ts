@@ -11,7 +11,6 @@ import {ISubscription} from 'rxjs-compat/Subscription';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareData } from '../Classes/ShareData';
-import { InternetConnectionComponent } from '../internet-connection/internet-connection.component';
 import { PlatformLocation, Location } from '@angular/common';
 // ------------------------------
 
@@ -39,13 +38,14 @@ export class FirstPageComponent implements OnInit,OnDestroy
   SUbs2 :ISubscription;
   Subs2 : ISubscription;
 
+ 
   constructor(private Firebase:Firebase,private AngularFireDatabase:AngularFireDatabase,
              private Formbuilder:FormBuilder,private LocalHostService:LocalHostService,
              private LocalHost:LocalHost,private AngularFireAuth:AngularFireAuth,private NgZone:NgZone,
-             private route: ActivatedRoute,private ShareData:ShareData,private BrowserBack:PlatformLocation,
-             private Router:Router,private Location:Location
+             private ShareData:ShareData,private BrowserBack:PlatformLocation,private Location:Location
             ) 
   { 
+    console.log("Inside The First Page cons");
     this.BrowserBack.onPopState(()=>{
                                       console.log("back button click");
                                       this.Location.go("/LoginPage");
@@ -55,14 +55,13 @@ export class FirstPageComponent implements OnInit,OnDestroy
 
   ngOnInit()
   {
-  
+    console.log("Inside The First Page");
     //Subscribing Observable for the checking the internet connection available or not
     this.Subs = this.ShareData.currentInternetConnection
                     .subscribe(InternetConnection=>{
                                                       this.InternetConnection = InternetConnection;
                                                       console.log("Internet connection")
-                                                      console.log(InternetConnection);
-                                                      this.InternetConnection=InternetConnection;
+                                                     
                                                       if(InternetConnection)
                                                       {
                                                         this.ShareData.currentEmailId
@@ -98,24 +97,25 @@ export class FirstPageComponent implements OnInit,OnDestroy
                                                                                                             }
                                                                                                  )
                                                                                   })
-                                        }
-                                        else
-                                        {
-                                          this.Subs1 = this.ShareData.currentEmailId
-                                                          .subscribe(EmailId=>{
-                                                                                this.EmailId = EmailId;
-                                                                                this.Subs2 = this.ShareData.currentPassword
-                                                                                      .subscribe(
-                                                                                                  Password=>{
-                                                                                                              this.Password = Password;
-                                                                                                              console.log("Sharing the data"+EmailId);
-                                                                                                              this.Get_Firebase_TimeStamp();
-                                                                                                            }
-                                                                                                );
-                                                                              });
-                                        }   
+                                                        }
+                                                      else
+                                                      {
+                                                        this.Subs1 = this.ShareData.currentEmailId
+                                                                        .subscribe(EmailId=>{
+                                                                                              this.EmailId = EmailId;
+                                                                                              this.Subs2 = this.ShareData.currentPassword
+                                                                                                    .subscribe(
+                                                                                                                Password=>{
+                                                                                                                            this.Password = Password;
+                                                                                                                            console.log("Sharing the data"+EmailId);
+                                                                                                                            this.Get_Firebase_TimeStamp();
+                                                                                                                          }
+                                                                                                              );
+                                                                                            });
+                                                      }   
 
-                                      });
+                                                    }
+                              );
    
     //Subscribing Observable for the checking the LocalHost available or not
     this.SUbs2 = this.ShareData.currentLocalHostConnection
