@@ -7,7 +7,7 @@ const Observe = new Observable(observer=>{})
 @Injectable()
 export class ShareData
 {
-    private messageSource = new BehaviorSubject<any>("");
+    private messageSource = new BehaviorSubject<any>("Email");
     private password = new BehaviorSubject<any>("");
     private InternetConnection = new BehaviorSubject<any>(navigator.onLine);
     private LocalHostConnection = new BehaviorSubject<any>("");

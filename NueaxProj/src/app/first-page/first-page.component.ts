@@ -47,10 +47,20 @@ export class FirstPageComponent implements OnInit,OnDestroy
   { 
     console.log("Inside The First Page cons");
     this.BrowserBack.onPopState(()=>{
-                                      console.log("back button click");
-                                      this.Location.go("/LoginPage");
-                                      window.location.reload();
-                                    });
+                                      console.log("ck button click");
+                                      //this.Location.go("/LoginPage");
+                                      window.location.replace("http://localhost:4200/LoginPage");
+                                    });   
+
+    this.ShareData.currentEmailId
+        .subscribe(EmailId=>{     
+                              console.log("123123123123131231231231");
+                              console.log(EmailId);
+                              if(EmailId=="Email")
+                              {
+                                window.location.replace("http://localhost:4200/LoginPage");
+                              }
+                            })
   }
 
   ngOnInit()
@@ -135,6 +145,8 @@ export class FirstPageComponent implements OnInit,OnDestroy
                                                         DOB:[null,Validators.compose([Validators.required])]
                                                      });   
     //-----------------------------------
+
+    
   }
 
   ShowFireBaseData()
